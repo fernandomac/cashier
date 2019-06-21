@@ -15,10 +15,10 @@ Develop a Registration Service that implements a /register endpoint taking a JSO
 4. Payment Card Number – between 15 and 19 digits
 
 ### Expected responses:
-1. If the request body fails to conform to any of the basic validation checks return HTTP Status code: 400 
-2· Reject registrations if the user is under the age of 18 and return HTTP Status code: 403 
-3· If the username has already been used reject the request and return HTTP Status code: 409 
-4· A successful registration should return HTTP Status code: 201 
+1. If the request body fails to conform to any of the basic validation checks return HTTP Status code: 400  
+2· Reject registrations if the user is under the age of 18 and return HTTP Status code: 403  
+3. If the username has already been used reject the request and return HTTP Status code: 409  
+4. A successful registration should return HTTP Status code: 201  
 5. On start-up allow a list of blocked payment issuer identification numbers to be provided. The issuer identification number (IIN) is the first 6 digits of the payment card’s number. If the IIN is blocked registration should fail returning HTTP Status code: 406 
 
 
