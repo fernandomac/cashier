@@ -26,19 +26,21 @@ Develop a Registration Service that implements a /register endpoint taking a JSO
 Application has been built using **Maven**, **java8** and **SpringBoot**. and requires **JDK8** and **Maven**
 
 ### Build command that needs to be executed from project root:
-`maven clean install` 
+`mvn clean install` 
 
 This action will compile, run all the unit and integration tests and generate the **cashier.jar** artifact inside **/target** folder.
 
 
 # Runtime
-**cashier.jar.jar** has been built to be runnable as:
+**cashier.jar** has been built to be runnable as:
  
 1. stand alone java application using the command (run from **target** folder):  `java -jar cashier.jar`
 2. run it in a **docker** (look at [*Docker Commands*](#docker-commands) section)
 3. from any Java development IDE like Eclipse. Runnable class: **com.cashier.application.CashierApplication** 
-4. The list of IIN blocked can be provided through **config-cashier.properties** at the same directory level as **cashier.jar**, 
-setting the property **card.issuer.blocked.list** with the IIN values separated by comma e.g: `card.issuer.blocked.list=123456,789123`
+4. The list of IIN blocked can be provided through setting the property **card.issuer.blocked.list** with the IIN values separated by comma e.g: `card.issuer.blocked.list=123456,789123`:
+	1. Editing on **config-cashier.properties** inside **src/main/resource** folder.
+	2. Creating an external **config-cashier.properties** at the same directory level as **cashier.jar**. 
+	3. Command line properties e.g:`java -jar -Dcard.issuer.blocked.list=123456,999444 cashier.jar`
 
 ### Logging
 Application logs will be generated inside **/logs** folder at the same directory level of the **cashier.jar**  
@@ -79,10 +81,10 @@ This can be a no-sql database due the data format, for example: MongoDB, Google 
 
 # Docker Commands
 
-Those are useful docker commands and pre-requires docker installation.
+These are useful docker commands and pre-requires docker installation.
 They should be run from project root.
  
-### Build and register docker image from jar
+### Build and register a docker image once jar artifact has been generated
 `docker build -f Dockerfile -t "cashier:v1" .`
 
 ### run docker image in container

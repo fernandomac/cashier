@@ -181,17 +181,30 @@ public class UserProfileServiceTest {
 	}
 	
 	@Test(expected=DataFormatException.class)
-	public void shouldNotRegisterUserInvalidPasswordSpecialChars() {
+	public void shouldNotRegisterUserInvalidPasswordWhitespace() {
 		
 		RegisterRequest request = new RegisterRequest();
 		request.setDob(LocalDate.of(2000, 5, 25));
-		request.setPassword("Pas1#");
+		request.setPassword("Pass 1");
+		request.setUsername("UserTest");
+		request.setPaymentCardNumber("349293081054425");
+		
+		service.register(request);
+	}
+	
+	@Test
+	public void shouldRegisterUserStrongPasswordSpecialChars() {
+		
+		RegisterRequest request = new RegisterRequest();
+		request.setDob(LocalDate.of(2000, 5, 25));
+		request.setPassword("Pas1#!@&ˆ*={]()=#%$#%$");
 		request.setPaymentCardNumber("349293081054422");
 		request.setUsername("UserTest");
 		
 		service.register(request);
 		
 		verify(userProfileDao).find(eq("UserTest"));
+		verify(userProfileDao).add(argThat(new UserMatcher("UserTest", "Pas1#!@&ˆ*={]()=#%$#%$", LocalDate.of(2000, 5, 25), "349293081054422")));
 		verifyNoMoreInteractions(userProfileDao);
 	}
 	

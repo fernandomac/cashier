@@ -21,7 +21,7 @@ public class UserProfile {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	@Pattern(regexp="^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{4,}$")
+	@Pattern(regexp="^(?=.*[A-Z])(?=.*\\d)[\\S]{4,}$")
 	@NotNull
 	public String getPassword() {
 		return password;
