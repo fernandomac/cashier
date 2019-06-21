@@ -29,7 +29,7 @@ public class RegisterRequest {
 	
 	@ApiModelProperty(
 		value = "Payment Card Number – between 15 and 19 digits",
-		example = "349293081054422", 
+		example = "0349293081054422", 
 		required=true
 	)
 	private String paymentCardNumber;
