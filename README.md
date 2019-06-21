@@ -38,7 +38,7 @@ This action will compile, run all the unit and integration tests and generate th
 2. run it in a **docker** (look at [*Docker Commands*](#docker-commands) section)
 3. from any Java development IDE like Eclipse. Runnable class: **com.cashier.application.CashierApplication** 
 4. The list of IIN blocked can be provided through setting the property **card.issuer.blocked.list** with the IIN values separated by comma e.g: `card.issuer.blocked.list=123456,789123`:
-	1. Editing on **config-cashier.properties** inside **src/main/resource** folder.
+	1. Editing **config-cashier.properties** inside **src/main/resource** folder.
 	2. Creating an external **config-cashier.properties** at the same directory level as **cashier.jar**. 
 	3. Command line properties e.g:`java -jar -Dcard.issuer.blocked.list=123456,999444 cashier.jar`
 

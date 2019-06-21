@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping
 @Api(value = "User profile API.")
 public class UserProfileController {
 	
@@ -28,7 +28,7 @@ public class UserProfileController {
 	@Autowired
 	private UserProfileService service;
 	
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus( HttpStatus.CREATED)
 	@ApiResponses(value = {
 	    @ApiResponse(code = 201, message = "Successfully created a new user"),
