@@ -31,11 +31,11 @@ public class UserProfileController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus( HttpStatus.CREATED)
 	@ApiResponses(value = {
-	    @ApiResponse(code = 201, message = "Successfully create a new user"),
+	    @ApiResponse(code = 201, message = "Successfully created a new user"),
 	    @ApiResponse(code = 400, message = "Invalid information provided"),
 	    @ApiResponse(code = 403, message = "User younger than expected"),
 	    @ApiResponse(code = 406, message = "Issuer identification number blocked"),
-	    @ApiResponse(code = 409, message = "Username alredy in use")
+	    @ApiResponse(code = 409, message = "Username already in use")
 	})
     public void register(@RequestBody RegisterRequest request) {
 		
