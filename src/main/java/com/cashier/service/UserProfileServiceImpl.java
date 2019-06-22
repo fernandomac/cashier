@@ -28,23 +28,23 @@ import com.cashier.repository.UserProfileDao;
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
 	
-	private static final int MINIMUN_AGE = 18;
+	private static final int MINIMUM_AGE = 18;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserProfileServiceImpl.class);
 	
 	private final ModelMapper mapper;
 	private final Validator validator;
-	private final UserProfileDao userProfileDate;
+	private final UserProfileDao userProfileDao;
 	private final List<String> cardIssuerBlocked;
 	
 	@Autowired
 	public UserProfileServiceImpl(
-			UserProfileDao userProfileDate, 
+			UserProfileDao userProfileDao, 
 			ModelMapper mapper, 
 			Validator validator,
 			@Value("#{'${card.issuer.blocked.list}'.split(',')}") List<String> cardIssuerBlocked) {
 		
-		this.userProfileDate = userProfileDate;
+		this.userProfileDao = userProfileDao;
 		this.mapper = mapper;
 		this.validator = validator;
 		this.cardIssuerBlocked = cardIssuerBlocked;
@@ -55,7 +55,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public void register(RegisterRequest request) {
 		UserProfile profile = mapper.map(request, UserProfile.class);
 		validateProfile(profile);
-		userProfileDate.add(profile);
+		userProfileDao.add(profile);
 	}
 
 	private void validateProfile(UserProfile profile) {
@@ -73,14 +73,14 @@ public class UserProfileServiceImpl implements UserProfileService {
 	}
 
 	private void validateDuplicated(UserProfile profile) {
-		Optional<UserProfile> duplicated = userProfileDate.find(profile.getUsername());
+		Optional<UserProfile> duplicated = userProfileDao.find(profile.getUsername());
 		if (duplicated.isPresent()) {
 			throw new DuplicatedException("Username already in use");
 		}
 	}
 
 	private void validateMinimumAge(UserProfile profile) {
-		if (profile.getDob().isAfter(LocalDate.now().minusYears(MINIMUN_AGE)) ) {
+		if (profile.getDob().isAfter(LocalDate.now().minusYears(MINIMUM_AGE)) ) {
 			throw new ForbiddenException("Minimum age is 18");
 		}
 	}
