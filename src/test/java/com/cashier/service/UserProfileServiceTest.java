@@ -238,6 +238,21 @@ public class UserProfileServiceTest {
 		verifyNoMoreInteractions(userProfileDao);
 	}
 	
+	@Test(expected=DataFormatException.class)
+	public void shouldNotRegisterUserAllInvalidFileds() {
+		
+		RegisterRequest request = new RegisterRequest();
+		request.setPassword("invalid");
+		request.setUsername("User Test");
+		request.setPaymentCardNumber("A349293081054422");
+		request.setDob(null);
+		
+		service.register(request);
+		
+		verify(userProfileDao).find(eq("UserTest"));
+		verifyNoMoreInteractions(userProfileDao);
+	}
+	
 	@Test(expected=ForbiddenException.class)
 	public void shouldNotRegisterUserYoungerThen18() {
 		

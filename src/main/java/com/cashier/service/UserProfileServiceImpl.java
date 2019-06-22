@@ -1,10 +1,10 @@
 package com.cashier.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -89,11 +89,11 @@ public class UserProfileServiceImpl implements UserProfileService {
 		Set<ConstraintViolation<Object>> violations = validator.validate(profile, Default.class);
 		
 		if (!violations.isEmpty()) {
-			List<String> invalidFields = new ArrayList<>();
-			violations.forEach(violation -> {
-				invalidFields.add(violation.getPropertyPath().toString());
-			});
-			throw new DataFormatException("Invalid or missing field: " + invalidFields );
+			List<String> invalids = violations.stream()
+					.map(e -> e.getPropertyPath().toString())
+					.collect(Collectors.toList());
+			
+			throw new DataFormatException("Invalid or missing field: " + invalids );
 		}
 	}
 	

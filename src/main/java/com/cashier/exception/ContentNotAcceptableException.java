@@ -8,10 +8,6 @@ public class ContentNotAcceptableException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public ContentNotAcceptableException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
 	public ContentNotAcceptableException(String message) {
 		super(message);
 	}
